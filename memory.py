@@ -5,31 +5,23 @@
 import os
 import json
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import Dict
 
-from langchain_openai import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate, ChatPromptTemplate
 from langchain.chains import LLMChain
-from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
 from langchain.schema import Document
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_community.vectorstores import Chroma
 
 class PersonalMemoryAgent:
-    """具有长期记忆管理能力的个人助手Agent"""
     
-    def __init__(self, deepseek_api_key: str, user_name: str = "用户"):
-        """
-        初始化Agent
-        
-        Args:
-            deepseek_api_key: DeepSeek API密钥
-            user_name: 用户名称
-        """
+    def __init__(self, deepseek_api_key: str, user_name: str = "chenkx"):
+
         self.user_name = user_name
         self.profile_file = f"user_profile_{user_name}.json"
         
-        # 配置DeepSeek API (使用OpenAI兼容接口)
+        # 配置DeepSeek API 
         self.llm = ChatOpenAI(
             model="deepseek-chat",
             openai_api_key=deepseek_api_key,
@@ -74,7 +66,7 @@ class PersonalMemoryAgent:
 对话内容：
 {conversation}
 
-请以JSON格式返回提取的信息，包括以下类别（如果有）：
+请以 JSON 格式返回提取的信息，包括以下类别（如果有）：
 - personal_info: 个人基本信息（姓名、年龄、职业等）
 - interests: 兴趣爱好
 - preferences: 偏好（喜欢/不喜欢的事物）
@@ -84,7 +76,7 @@ class PersonalMemoryAgent:
 - habits: 生活习惯
 - concerns: 关注的问题
 
-只返回JSON格式，不要包含其他文字：
+只返回 JSON 格式，不要包含其他文字：
 """
         )
         
