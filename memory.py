@@ -82,7 +82,7 @@ class PersonalMemoryAgent:
         
         # 对话生成提示词
         self.conversation_prompt = ChatPromptTemplate.from_messages([
-            ("system", """你是{user_name}的个人AI助手，具有长期记忆能力。
+            ("system", """你是{user_name}的个人 AI 助手，具有长期记忆能力。
 
 关于{user_name}的已知信息：
 {user_profile}
